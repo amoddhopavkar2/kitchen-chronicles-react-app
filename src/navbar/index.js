@@ -8,7 +8,7 @@ const NavbarComponent = () => {
   return (
     <Navbar collapseOnSelect expand="md" bg="light" variant="light">
       <Container>
-        <Navbar.Brand href="/">FoodAlgorithms</Navbar.Brand>
+        <Navbar.Brand href="/">Kitchen Chronicles</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
