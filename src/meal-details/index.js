@@ -63,25 +63,34 @@ const meal = {
 };
 
 const MealDetails = () => {
+  const instructions = meal.strInstructions.split("\r\n");
+  const ingredientList = [20];
+
   return (
-    <>
+    <div className={"mt-3"}>
       <h1>{meal.strMeal}</h1>
 
       <div></div>
 
       <Row>
-        <Col sm={"12"} md={"6"} className={"position-relative"}>
+        <Col sm={"12"} md={"6"}>
           <img
-            className={"w-50 position-absolute"}
+            className={"w-100 mb-3"}
             alt={"Picture of " + meal.strMeal}
             src={meal.strMealThumb}
           />
+
+          <h3>Ingredients:</h3>
+          <ul>{ingredientList.map((u) => u.length > 2 && <li>{u}</li>)}</ul>
         </Col>
         <Col className={"two"}>
-          <p>{meal.strInstructions}</p>
+          <ol>
+            <h3>Instructions:</h3>
+            {instructions.map((u) => u.length > 2 && <li>{u}</li>)}
+          </ol>
         </Col>
       </Row>
-    </>
+    </div>
   );
 };
 

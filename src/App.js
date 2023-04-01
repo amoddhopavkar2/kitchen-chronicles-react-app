@@ -11,11 +11,17 @@ import Register from "./users/register";
 import ProtectedRoute from "./users/protected-route";
 import Profile from "./users/profile";
 import CurrentUser from "./users/current-user";
+import { configureStore } from "@reduxjs/toolkit";
+import searchReducer from "./search/search-reducer";
+import { Provider } from "react-redux";
+
+const store = configureStore({ reducer: { search: searchReducer } });
 
 function App() {
   return (
-    <BrowserRouter>
-      <CurrentUser>
+    <Provider store={store}>
+      <BrowserRouter>
+        {/*<CurrentUser>*/}
         <Navbar />
         <Container>
           <Routes>
@@ -35,8 +41,9 @@ function App() {
             />
           </Routes>
         </Container>
-      </CurrentUser>
-    </BrowserRouter>
+        {/*</CurrentUser>*/}
+      </BrowserRouter>
+    </Provider>
   );
 }
 
