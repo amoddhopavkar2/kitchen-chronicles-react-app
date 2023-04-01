@@ -5,14 +5,13 @@ import { Navigate, useNavigate } from "react-router";
 
 const Login = () => {
   const { currentUser } = useSelector((state) => state.users);
-  const [username, setUsername] = useState("alice");
-  const [password, setPassword] = useState("alice1234");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLoginBtn = () => {
     try {
       dispatch(loginThunk({ username, password }));
-      navigate("/profile");
     } catch (e) {}
   };
   if (currentUser) {
@@ -34,7 +33,9 @@ const Login = () => {
         type="password"
         value={password}
       />
-      <button onClick={handleLoginBtn}>Login</button>
+      <button className="btn btn-primary w-100" onClick={handleLoginBtn}>
+        Login
+      </button>
     </>
   );
 };
