@@ -9,7 +9,7 @@ const MealCard = ({ meal }) => {
 
   return (
     <Col sm={"6"} md={"6"} lg="3">
-      <Card className={"mt-2 mb-2"}>
+      <Card className={"mt-2 mb-2 h-100"}>
         <Card.Img variant="top" src={meal.strMealThumb} />
         <Card.Body>
           <Card.Title>{meal.strMeal}</Card.Title>
