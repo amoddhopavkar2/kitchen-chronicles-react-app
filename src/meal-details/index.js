@@ -1,33 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import CommentComponent from "./comment-component";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { mealDetailsThunks } from "./meal-details-thunks";
 import YoutubeEmbed from "./youtube-embed";
-
-const comments = [
-  {
-    username: "alice",
-    review: "good food",
-    time: "2h",
-    likes: "2",
-    liked: true,
-    dislikes: "4",
-    disliked: false,
-  },
-];
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import { parseTime } from "../blog/parseTime";
+import { userLikesFoodThunk } from "../likes/likes-thunks";
+import {
+  createReviewThunk,
+  findReviewsByFoodThunk,
+} from "../reviews/reviews-thunks";
+import CommentComponent from "./comment-component";
+import Container from "react-bootstrap/Container";
 
 const MealDetails = () => {
+  const { currentUser } = useSelector((state) => state.users);
   const { meal, loading } = useSelector((state) => state.mealDetails);
+  const { reviews } = useSelector((state) => state.reviews);
   const dispatch = useDispatch();
   const { mid } = useParams();
+  const [comment, setComment] = useState("");
+
   useEffect(() => {
     dispatch(mealDetailsThunks(mid));
+    dispatch(findReviewsByFoodThunk(mid));
   }, []);
-  console.log(meal);
+
+  const postMealComment = () => {
+    const review = {
+      idMeal: meal.idMeal,
+      review: comment,
+    };
+    dispatch(createReviewThunk(review));
+    setComment("");
+    dispatch(findReviewsByFoodThunk(mid));
+  };
+
+  const reloadComments = () => {
+    dispatch(findReviewsByFoodThunk(mid));
+  };
 
   const ingredientList = [20];
   ingredientList[0] = meal.strMeasure1 + " " + meal.strIngredient1;
@@ -50,69 +66,112 @@ const MealDetails = () => {
   ingredientList[17] = meal.strMeasure18 + " " + meal.strIngredient18;
   ingredientList[18] = meal.strMeasure19 + " " + meal.strIngredient19;
   ingredientList[19] = meal.strMeasure20 + " " + meal.strIngredient20;
-
   return (
     <div className={"mt-3"}>
-      <Link to={-1} className={"text-decoration-none text-secondary"}>
-        <i className="bi bi-arrow-left me-1"></i>Back
-      </Link>
-
+      <div className={"mb-2"}>
+        <Link to={-1} className={"text-decoration-none text-secondary"}>
+          <i className="bi bi-arrow-left me-1"></i>Back
+        </Link>
+      </div>
       {!loading && (
         <>
           <h2>{meal.strMeal}</h2>
+
+          {/*<i onClick={() => {*/}
+          {/*    dispatch(userLikesFoodThunk(mid))*/}
+          {/*}}*/}
+          {/*   className={`${currentUser ? '' : 'd-none'} float-end bi bi-heart me-2`}></i>*/}
 
           <h5>
             <span className="badge bg-secondary">{meal.strArea}</span>{" "}
             <span className="badge bg-secondary">{meal.strCategory}</span>
           </h5>
-
-          <Row>
-            <Col sm={"12"} md={"6"}>
-              <img
-                className={"w-100 mb-3"}
-                alt={"Picture of " + meal.strMeal}
-                src={meal.strMealThumb}
-              />
-
-              <h4>Youtube Video:</h4>
-              {meal.strYoutube && (
-                <YoutubeEmbed
-                  embedId={meal.strYoutube.substring(
-                    meal.strYoutube.indexOf("=") + 1
-                  )}
+          <Container>
+            <Row>
+              <Col sm={"12"} md={"6"}>
+                <img
+                  className={"w-100 mb-3"}
+                  alt={"Picture of " + meal.strMeal}
+                  src={meal.strMealThumb}
                 />
-              )}
-            </Col>
-            <Col>
-              <h4>Ingredients:</h4>
-              <ul>
-                {ingredientList.map(
-                  (u) => !u.includes("null") && u.length > 2 && <li>{u}</li>
-                )}
-              </ul>
-              <h4>Instructions:</h4>
-              <ol>
-                {typeof meal.strInstructions !== "undefined" &&
-                  meal.strInstructions
-                    .split("\r\n")
-                    .map(
-                      (u) =>
-                        u.length > 4 &&
-                        !u.toLowerCase().includes("step") && <li>{u}</li>
-                    )}
-              </ol>
-            </Col>
-          </Row>
 
+                <h4>Youtube Video:</h4>
+                {meal.strYoutube && (
+                  <YoutubeEmbed
+                    embedId={meal.strYoutube.substring(
+                      meal.strYoutube.indexOf("=") + 1
+                    )}
+                  />
+                )}
+              </Col>
+              <Col>
+                <h4>Ingredients:</h4>
+                <ul>
+                  {ingredientList.map(
+                    (u) => !u.includes("null") && u.length > 2 && <li>{u}</li>
+                  )}
+                </ul>
+                <h4>Instructions:</h4>
+                <ol>
+                  {typeof meal.strInstructions !== "undefined" &&
+                    meal.strInstructions
+                      .split("\r\n")
+                      .map(
+                        (u) =>
+                          u.length > 4 &&
+                          !u.toLowerCase().includes("step") && <li>{u}</li>
+                      )}
+                </ol>
+              </Col>
+            </Row>
+          </Container>
           <hr />
 
-          <h3>Comments</h3>
+          <h4>
+            Comments
+            <span className={"text-secondary"}>
+              <i className="bi bi-dot"></i>
+              {reviews.length}
+            </span>
+          </h4>
+          <Container>
+            {currentUser ? (
+              <Form>
+                <Form.Group className={"mb-2"}>
+                  <FloatingLabel
+                    controlId="floatingTextarea2"
+                    label="Leave a comment here"
+                  >
+                    <Form.Control
+                      as="textarea"
+                      placeholder="Leave a comment here"
+                      value={comment}
+                      onChange={(event) => setComment(event.target.value)}
+                      style={{ height: "6rem" }}
+                    />
+                  </FloatingLabel>
+                  <Form.Text>Logged in as {currentUser.username}.</Form.Text>
+                </Form.Group>
 
-          <ul className={"list-group"}>
-            {comments.map((u) => (
-              <CommentComponent comment={u} />
-            ))}
-          </ul>
+                <Button
+                  variant="primary"
+                  onClick={() => postMealComment()}
+                  disabled={comment === ""}
+                >
+                  Post Comment
+                </Button>
+              </Form>
+            ) : (
+              <Alert variant={"warning"} className={"mb-3"}>
+                Please login to comment.
+              </Alert>
+            )}
+            <ul className={"list-group mb-3 mt-3"}>
+              {reviews.map((u) => (
+                <CommentComponent u={u} rerender={reloadComments} key={u._id} />
+              ))}
+            </ul>
+          </Container>
         </>
       )}
     </div>
