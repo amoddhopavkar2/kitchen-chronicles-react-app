@@ -5,7 +5,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
-          Kitchen Chronicles
+          FoodAlgorithms
         </a>
         <button
           className="navbar-toggler"
@@ -27,12 +27,12 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
-                Recommendation
+                Recipes
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
-                Search
+                Cocktails
               </a>
             </li>
             <li className="nav-item dropdown">
@@ -60,20 +60,6 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-      </div>
-
-      <div className="container-fluid">
-        <form className="d-flex" role="search">
-          <input
-            className="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button className="btn btn-outline-success" type="submit">
-            Search
-          </button>
-        </form>
       </div>
     </nav>
   );
