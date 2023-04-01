@@ -2,10 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { findFoodBySearchTermThunk } from "./search-thunks";
 import { findFoodBySearchTerm } from "./search-service";
+import { configureStore } from "@reduxjs/toolkit";
 // import {userLikesMovieThunk} from "../likes/likes-thunks";
 
-const Search = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+function Search() {
+  const [searchTerm, setSearchTerm] = useState("Indian");
   const { recipes, loading } = useSelector((state) => state.search);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -41,6 +42,6 @@ const Search = () => {
       </ul>
     </>
   );
-};
+}
 
 export default Search;

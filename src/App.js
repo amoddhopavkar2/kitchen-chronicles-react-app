@@ -11,39 +11,32 @@ import Register from "./users/register";
 import ProtectedRoute from "./users/protected-route";
 import Profile from "./users/profile";
 import CurrentUser from "./users/current-user";
-import { configureStore } from "@reduxjs/toolkit";
-import searchReducer from "./search/search-reducer";
-import { Provider } from "react-redux";
-
-const store = configureStore({ reducer: { search: searchReducer } });
 
 function App() {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        {/*<CurrentUser>*/}
-        <Navbar />
-        <Container>
-          <Routes>
-            <Route path="/*" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/meal/details/:fid" element={<MealDetails />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </Container>
-        {/*</CurrentUser>*/}
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      {/*<CurrentUser>*/}
+      <Navbar />
+      <Container>
+        <Routes>
+          <Route path="/*" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/meal/details/:fid" element={<MealDetails />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Container>
+      {/*</CurrentUser>*/}
+    </BrowserRouter>
   );
 }
 
