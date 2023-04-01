@@ -1,7 +1,7 @@
 import React from "react";
 import RandomRecipes from "../caraousel-recipe";
 import RandomCocktails from "../caraousel-cocktail";
-import meal from "../data/recipe.json";
+import meal from "../data/recipes.json";
 
 const Home = () => {
   const summary =
