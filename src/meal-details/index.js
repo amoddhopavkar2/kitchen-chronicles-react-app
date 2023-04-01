@@ -130,7 +130,11 @@ const MealDetails = () => {
                 src={meal.strMealThumb}
               />
               <h3>Ingredients:</h3>
-              <ul>{ingredientList.map((u) => u.length > 5 && <li>{u}</li>)}</ul>
+              <ul>
+                {ingredientList.map(
+                  (u) => !u.includes("null") && u.length > 2 && <li>{u}</li>
+                )}
+              </ul>
             </Col>
             <Col>
               <h3>Instructions:</h3>
@@ -138,7 +142,11 @@ const MealDetails = () => {
                 {typeof meal.strInstructions !== "undefined" &&
                   meal.strInstructions
                     .split("\r\n")
-                    .map((u) => u.length > 8 && <li>{u}</li>)}
+                    .map(
+                      (u) =>
+                        u.length > 4 &&
+                        !u.toLowerCase().includes("step") && <li>{u}</li>
+                    )}
               </ol>
             </Col>
           </Row>
