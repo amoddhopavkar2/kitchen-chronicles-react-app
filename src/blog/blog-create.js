@@ -6,26 +6,36 @@ import { createBlogThunk } from "./blog-thunks";
 import { useNavigate } from "react-router";
 
 const BlogCreate = () => {
+  const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const createBlog = () => {
-    dispatch(
-      createBlogThunk({
-        title: "title2",
-        author: "alice",
-        summary: summary,
-      })
-    );
-    // navigate('/blog')
+    if (summary === "") {
+    } else {
+      dispatch(
+        createBlogThunk({
+          title: title,
+          blog: summary,
+        })
+      );
+      navigate("/blog");
+    }
   };
   return (
     <div>
       <form>
+        <input
+          value={title}
+          placeholder={"Blog title"}
+          onChange={(event) => setTitle(event.target.value)}
+        />
+
         <textarea
           value={summary}
+          placeholder={"Blog body"}
           onChange={(event) => setSummary(event.target.value)}
-        ></textarea>
+        />
       </form>
 
       <ReactMarkdown children={summary} />
