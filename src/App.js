@@ -14,8 +14,16 @@ import CurrentUser from "./users/current-user";
 import { configureStore } from "@reduxjs/toolkit";
 import searchReducer from "./search/search-reducer";
 import { Provider } from "react-redux";
+import randomMealReducer from "./caraousel-recipe/random-meal-reducer";
+import mealDetailsReducer from "./meal-details/meal-details-reducer";
 
-const store = configureStore({ reducer: { search: searchReducer } });
+const store = configureStore({
+  reducer: {
+    search: searchReducer,
+    randomMeals: randomMealReducer,
+    mealDetails: mealDetailsReducer,
+  },
+});
 
 function App() {
   return (
@@ -27,7 +35,7 @@ function App() {
           <Routes>
             <Route path="/*" element={<Home />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/meal/details/:fid" element={<MealDetails />} />
+            <Route path="/meal/details/:mid" element={<MealDetails />} />
             <Route path="/users" element={<Users />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

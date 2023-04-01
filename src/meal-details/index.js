@@ -1,8 +1,11 @@
 import React from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CommentComponent from "./comment-component";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { mealDetailsThunks } from "./meal-details-thunks";
 
 const meal = {
   idMeal: "52930",
@@ -76,9 +79,15 @@ const comments = [
 ];
 
 const MealDetails = () => {
-  const instructions = meal.strInstructions.split("\r\n");
-  const ingredientList = [20];
+  const { meal, loading } = useSelector((state) => state.mealDetails);
+  const dispatch = useDispatch();
+  const { mid } = useParams();
+  useEffect(() => {
+    dispatch(mealDetailsThunks(mid));
+  }, []);
+  console.log(meal);
 
+  const ingredientList = [20];
   ingredientList[0] = meal.strMeasure1 + " " + meal.strIngredient1;
   ingredientList[1] = meal.strMeasure2 + " " + meal.strIngredient2;
   ingredientList[2] = meal.strMeasure3 + " " + meal.strIngredient3;
@@ -100,41 +109,51 @@ const MealDetails = () => {
   ingredientList[18] = meal.strMeasure19 + " " + meal.strIngredient19;
   ingredientList[19] = meal.strMeasure20 + " " + meal.strIngredient20;
 
-  console.log(comments);
+  //
+  // console.log(comments)
   return (
     <div className={"mt-3"}>
-      <h1>{meal.strMeal}</h1>
+      {!loading && (
+        <>
+          <h1>{meal.strMeal}</h1>
 
-      <h5>
-        <span className="badge bg-secondary">{meal.strArea}</span>{" "}
-        <span className="badge bg-secondary">{meal.strCategory}</span>
-      </h5>
+          <h5>
+            <span className="badge bg-secondary">{meal.strArea}</span>{" "}
+            <span className="badge bg-secondary">{meal.strCategory}</span>
+          </h5>
 
-      <Row>
-        <Col sm={"12"} md={"6"}>
-          <img
-            className={"w-100 mb-3"}
-            alt={"Picture of " + meal.strMeal}
-            src={meal.strMealThumb}
-          />
-          <h3>Ingredients:</h3>
-          <ul>{ingredientList.map((u) => u.length > 2 && <li>{u}</li>)}</ul>
-        </Col>
-        <Col>
-          <h3>Instructions:</h3>
-          <ol>{instructions.map((u) => u.length > 2 && <li>{u}</li>)}</ol>
-        </Col>
-      </Row>
+          <Row>
+            <Col sm={"12"} md={"6"}>
+              <img
+                className={"w-100 mb-3"}
+                alt={"Picture of " + meal.strMeal}
+                src={meal.strMealThumb}
+              />
+              <h3>Ingredients:</h3>
+              <ul>{ingredientList.map((u) => u.length > 5 && <li>{u}</li>)}</ul>
+            </Col>
+            <Col>
+              <h3>Instructions:</h3>
+              <ol>
+                {typeof meal.strInstructions !== "undefined" &&
+                  meal.strInstructions
+                    .split("\r\n")
+                    .map((u) => u.length > 8 && <li>{u}</li>)}
+              </ol>
+            </Col>
+          </Row>
 
-      <hr />
+          <hr />
 
-      <h3>Comments</h3>
+          <h3>Comments</h3>
 
-      <ul className={"list-group"}>
-        {comments.map((u) => (
-          <CommentComponent comment={u} />
-        ))}
-      </ul>
+          <ul className={"list-group"}>
+            {comments.map((u) => (
+              <CommentComponent comment={u} />
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 };
