@@ -14,16 +14,20 @@ import CurrentUser from "./users/current-user";
 import { configureStore } from "@reduxjs/toolkit";
 import searchReducer from "./search/search-reducer";
 import { Provider } from "react-redux";
-import PublicProfile from "./users/public-profile";
-import usersReducer from "./users/users-reducer";
 import randomMealReducer from "./caraousel-recipe/random-meal-reducer";
 import mealDetailsReducer from "./meal-details/meal-details-reducer";
+import usersReducer from "./users/users-reducer";
+import Blog from "./blog";
+import BlogDetails from "./blog/blog-details";
+import BlogCreate from "./blog/blog-create";
+import BlogReducer from "./blog/blog-reducer";
 
 const store = configureStore({
   reducer: {
     search: searchReducer,
     randomMeals: randomMealReducer,
     mealDetails: mealDetailsReducer,
+    blog: BlogReducer,
     users: usersReducer,
   },
 });
@@ -32,28 +36,30 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <CurrentUser>
-          <Navbar />
-          <Container>
-            <Routes>
-              <Route path="/*" element={<Home />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/meal/details/:mid" element={<MealDetails />} />
-              <Route path="/users" element={<Users />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                }
-              />
-              {/*<Route path="/profile/:uid" element={<PublicProfile/>}/>*/}
-            </Routes>
-          </Container>
-        </CurrentUser>
+        {/*<CurrentUser>*/}
+        <Navbar />
+        <Container>
+          <Routes>
+            <Route path="/*" element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/meal/details/:mid" element={<MealDetails />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/create" element={<BlogCreate />} />
+            <Route path="/blog/details/:bid" element={<BlogDetails />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Container>
+        {/*</CurrentUser>*/}
       </BrowserRouter>
     </Provider>
   );

@@ -17,6 +17,7 @@ const NavbarComponent = () => {
           <Nav className="me-auto">
             <Nav.Link onClick={() => navigate("/search")}>Recipes</Nav.Link>
             <Nav.Link onClick={() => navigate("/search")}>Cocktails</Nav.Link>
+            <Nav.Link onClick={() => navigate("/blog")}>Blog</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link onClick={() => navigate("/login")}>Login</Nav.Link>
