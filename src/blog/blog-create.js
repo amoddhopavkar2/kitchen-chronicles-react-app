@@ -36,46 +36,38 @@ const BlogCreate = () => {
       <h2>Write a blog</h2>
 
       <Container>
-        <Row className={"mb-3 mt-2"}>
-          <Col md={6}>
-            <span className={"text-muted"}>Write your blog here</span>
-            <Form>
-              <FloatingLabel
-                controlId="blogTitle"
-                label="Title"
-                className="mb-3"
-              >
-                <Form.Control
-                  type="text"
-                  value={title}
-                  placeholder="Title"
-                  onChange={(event) => setTitle(event.target.value)}
-                />
-              </FloatingLabel>
-              <FloatingLabel controlId="blogBody" label="Body">
-                <Form.Control
-                  as="textarea"
-                  placeholder="Body"
-                  style={{ height: "15rem" }}
-                  value={summary}
-                  onChange={(event) => setSummary(event.target.value)}
-                />
-              </FloatingLabel>
-              <Form.Text id="passwordHelpBlock" muted>
-                Write your blog using Markdown.
-              </Form.Text>
-            </Form>
-          </Col>
+        <span className={"text-muted"}>Write your blog here</span>
+        <Form>
+          <FloatingLabel controlId="blogTitle" label="Title" className="mb-3">
+            <Form.Control
+              type="text"
+              value={title}
+              placeholder="Title"
+              onChange={(event) => setTitle(event.target.value)}
+            />
+          </FloatingLabel>
+          <FloatingLabel controlId="blogBody" label="Body">
+            <Form.Control
+              as="textarea"
+              placeholder="Body"
+              style={{ height: "15rem" }}
+              value={summary}
+              onChange={(event) => setSummary(event.target.value)}
+            />
+          </FloatingLabel>
+          <Form.Text id="passwordHelpBlock" muted>
+            Write your blog using Markdown.
+          </Form.Text>
+        </Form>
 
-          <Col>
-            <hr className={"d-block d-md-none"} />
-            <span className={"text-muted"}>Preview</span>
-            <h3>{title}</h3>
-            <ReactMarkdown children={summary} />
-          </Col>
-        </Row>
+        <hr />
 
-        <Button onClick={createBlog} className={"mb-3"}>
+        <hr className={"d-block d-md-none"} />
+        <span className={"text-muted"}>Preview</span>
+        <h3>{title}</h3>
+        <ReactMarkdown children={summary} />
+
+        <Button onClick={createBlog} className={"mb-3 mt-5"}>
           Publish Blog
         </Button>
       </Container>
