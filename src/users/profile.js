@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { logoutThunk, updateUserThunk } from "./users-thunk";
+import { logoutThunk, updateProfileThunk } from "./users-thunk";
 import { useNavigate } from "react-router";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -20,8 +20,19 @@ const Profile = () => {
     navigate("/login");
   };
   const updateUserProfile = () => {
+    dispatch(
+      updateProfileThunk({
+        ...currentUser,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      })
+    );
     setEditProfile(false);
+    dispatch();
   };
+  console.log(currentUser);
 
   return (
     <>
@@ -69,6 +80,9 @@ const Profile = () => {
                   plaintext={!editProfile}
                   disabled={editProfile}
                 />
+                {editProfile && (
+                  <Form.Text>Username are not changeable</Form.Text>
+                )}
               </Col>
             </Form.Group>
 

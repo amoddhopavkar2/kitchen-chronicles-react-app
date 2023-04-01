@@ -14,9 +14,19 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("CRITIC");
   const dispatch = useDispatch();
   const handleRegisterBtn = () => {
-    dispatch(registerThunk({ firstname, lastname, username, email, password }));
+    dispatch(
+      registerThunk({
+        firstName: firstname,
+        lastName: lastname,
+        username: username,
+        email: email,
+        password: password,
+        role: role,
+      })
+    );
   };
   const navigate = useNavigate();
   if (currentUser) {
@@ -72,7 +82,7 @@ const Register = () => {
         <Form.Group className="mb-3" controlId="registerPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            placeholder="Enter email"
+            placeholder="Enter password"
             value={password}
             type={"password"}
             onChange={(event) => setPassword(event.target.value)}
@@ -85,13 +95,19 @@ const Register = () => {
             type={"radio"}
             name={"registerRolesRadio"}
             label={`Blogger`}
+            value={"BLOGGER"}
             id={`registerRoleBlogger`}
+            checked={role === "BLOGGER"}
+            onChange={(event) => setRole(event.target.value)}
           />
           <Form.Check
             type={"radio"}
             name={"registerRolesRadio"}
             label={`Food Critic`}
+            value={"CRITIC"}
             id={`registerRoleCritic`}
+            checked={role === "CRITIC"}
+            onChange={(event) => setRole(event.target.value)}
           />
         </Form.Group>
 

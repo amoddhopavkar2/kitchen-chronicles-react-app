@@ -6,8 +6,10 @@ import {
   logoutThunk,
   profileThunk,
   registerThunk,
+  updateProfileThunk,
   updateUserThunk,
 } from "./users-thunk";
+import { updateProfile } from "./users-service";
 
 const usersReducer = createSlice({
   name: "users",
@@ -50,6 +52,10 @@ const usersReducer = createSlice({
         ...state.users[userNdx],
         ...payload,
       };
+    },
+    [updateProfileThunk.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.currentUser = payload;
     },
   },
 });
