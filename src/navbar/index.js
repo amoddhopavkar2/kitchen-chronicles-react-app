@@ -10,7 +10,7 @@ const NavbarComponent = () => {
     <Navbar collapseOnSelect expand="md" bg="light" variant="light">
       <Container>
         <Navbar.Brand onClick={() => navigate("/")}>
-        Kitchen Chronicles
+          Kitchen Chronicles
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
