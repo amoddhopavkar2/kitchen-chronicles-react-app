@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CommentComponent from "./comment-component";
@@ -53,9 +53,13 @@ const MealDetails = () => {
 
   return (
     <div className={"mt-3"}>
+      <Link to={-1} className={"text-decoration-none text-secondary"}>
+        <i className="bi bi-arrow-left me-1"></i>Back
+      </Link>
+
       {!loading && (
         <>
-          <h1>{meal.strMeal}</h1>
+          <h2>{meal.strMeal}</h2>
 
           <h5>
             <span className="badge bg-secondary">{meal.strArea}</span>{" "}
@@ -70,7 +74,7 @@ const MealDetails = () => {
                 src={meal.strMealThumb}
               />
 
-              <h3>Youtube Video:</h3>
+              <h4>Youtube Video:</h4>
               {meal.strYoutube && (
                 <YoutubeEmbed
                   embedId={meal.strYoutube.substring(
@@ -80,13 +84,13 @@ const MealDetails = () => {
               )}
             </Col>
             <Col>
-              <h3>Ingredients:</h3>
+              <h4>Ingredients:</h4>
               <ul>
                 {ingredientList.map(
                   (u) => !u.includes("null") && u.length > 2 && <li>{u}</li>
                 )}
               </ul>
-              <h3>Instructions:</h3>
+              <h4>Instructions:</h4>
               <ol>
                 {typeof meal.strInstructions !== "undefined" &&
                   meal.strInstructions

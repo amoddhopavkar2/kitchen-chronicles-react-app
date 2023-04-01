@@ -49,9 +49,9 @@ function App() {
               <Route
                 path="/blog/create"
                 element={
-                  <ProtectedBlogCreate>
+                  <ProtectedRoute>
                     <BlogCreate />
-                  </ProtectedBlogCreate>
+                  </ProtectedRoute>
                 }
               />
               <Route path="/blog/details/:bid" element={<BlogDetails />} />
