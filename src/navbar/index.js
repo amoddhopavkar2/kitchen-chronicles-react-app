@@ -1,12 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
-          FoodAlgorithms
-        </a>
+        <Link className="navbar-brand" to={"/home"}>
+          Kitchen Chronicles
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -21,22 +24,26 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <Link className="nav-link active" aria-current="page" to={"/"}>
                 Home
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to={"/search"}
+              >
                 Recipes
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link className="nav-link" to="/search">
                 Cocktails
-              </a>
+              </Link>
             </li>
             <li className="nav-item dropdown">
-              <a
+              <Link
                 className="nav-link dropdown-toggle"
                 href="#"
                 role="button"
@@ -44,17 +51,17 @@ const Navbar = () => {
                 aria-expanded="false"
               >
                 Profile
-              </a>
+              </Link>
               <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" href="#">
                     Login
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" href="#">
                     Register
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>
