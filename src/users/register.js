@@ -36,7 +36,7 @@ const Register = () => {
       <button className="btn btn-primary w-100" onClick={handleRegisterBtn}>
         Register
       </button>
-      {currentUser && <h1>Welcom new user: {currentUser.username}</h1>}
+      {currentUser && <h1>Welcome new user: {currentUser.username}</h1>}
     </>
   );
 };
