@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import RandomRecipes from "../random-recipes";
+import RandomRecipes from "../caraousel-recipe";
 import { useDispatch, useSelector } from "react-redux";
 import { userLikesFoodThunk } from "../likes/likes-thunks";
 import { parseTime } from "../blog/parseTime";

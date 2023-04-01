@@ -15,7 +15,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import searchReducer from "./search/search-reducer";
 import { Provider } from "react-redux";
 import PublicProfile from "./users/public-profile";
-import randomMealReducer from "./random-recipes/random-meal-reducer";
+import randomMealReducer from "./caraousel-recipe/random-meal-reducer";
 import mealDetailsReducer from "./meal-details/meal-details-reducer";
 import usersReducer from "./users/users-reducer";
 import Blog from "./blog";
