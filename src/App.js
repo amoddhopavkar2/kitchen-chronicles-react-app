@@ -15,7 +15,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import searchReducer from "./search/search-reducer";
 import { Provider } from "react-redux";
 import PublicProfile from "./users/public-profile";
-import randomMealReducer from "./caraousel-recipe/random-meal-reducer";
+import randomMealReducer from "./random-recipes/random-meal-reducer";
 import mealDetailsReducer from "./meal-details/meal-details-reducer";
 import usersReducer from "./users/users-reducer";
 import Blog from "./blog";
@@ -23,6 +23,8 @@ import BlogDetails from "./blog/blog-details";
 import BlogCreate from "./blog/blog-create";
 import BlogReducer from "./blog/blog-reducer";
 import ProtectedBlogCreate from "./blog/protected-blog-create";
+import reviewsReducer from "./reviews/reviews-reducer";
+import followsReducer from "./follows/follows-reducer";
 
 const store = configureStore({
   reducer: {
@@ -31,6 +33,8 @@ const store = configureStore({
     mealDetails: mealDetailsReducer,
     blog: BlogReducer,
     users: usersReducer,
+    reviews: reviewsReducer,
+    follows: followsReducer,
   },
 });
 
@@ -43,15 +47,16 @@ function App() {
           <Container className={"mt-3 mb-3"}>
             <Routes>
               <Route path="/*" element={<Home />} />
+              <Route path="/search/:searchName" element={<Search />} />
               <Route path="/search" element={<Search />} />
               <Route path="/meal/details/:mid" element={<MealDetails />} />
               <Route path="/blog" element={<Blog />} />
               <Route
                 path="/blog/create"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedBlogCreate>
                     <BlogCreate />
-                  </ProtectedRoute>
+                  </ProtectedBlogCreate>
                 }
               />
               <Route path="/blog/details/:bid" element={<BlogDetails />} />
