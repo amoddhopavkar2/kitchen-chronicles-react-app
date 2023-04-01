@@ -2,6 +2,7 @@ import React from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import CommentComponent from "./comment-component";
 
 const meal = {
   idMeal: "52930",
@@ -62,15 +63,52 @@ const meal = {
   dateModified: null,
 };
 
+const comments = [
+  {
+    username: "alice",
+    review: "good food",
+    time: "2h",
+    likes: "2",
+    liked: true,
+    dislikes: "4",
+    disliked: false,
+  },
+];
+
 const MealDetails = () => {
   const instructions = meal.strInstructions.split("\r\n");
   const ingredientList = [20];
 
+  ingredientList[0] = meal.strMeasure1 + " " + meal.strIngredient1;
+  ingredientList[1] = meal.strMeasure2 + " " + meal.strIngredient2;
+  ingredientList[2] = meal.strMeasure3 + " " + meal.strIngredient3;
+  ingredientList[3] = meal.strMeasure4 + " " + meal.strIngredient4;
+  ingredientList[4] = meal.strMeasure5 + " " + meal.strIngredient5;
+  ingredientList[5] = meal.strMeasure6 + " " + meal.strIngredient6;
+  ingredientList[6] = meal.strMeasure7 + " " + meal.strIngredient7;
+  ingredientList[7] = meal.strMeasure8 + " " + meal.strIngredient8;
+  ingredientList[8] = meal.strMeasure9 + " " + meal.strIngredient9;
+  ingredientList[9] = meal.strMeasure10 + " " + meal.strIngredient10;
+  ingredientList[10] = meal.strMeasure11 + " " + meal.strIngredient11;
+  ingredientList[11] = meal.strMeasure12 + " " + meal.strIngredient12;
+  ingredientList[12] = meal.strMeasure13 + " " + meal.strIngredient13;
+  ingredientList[13] = meal.strMeasure14 + " " + meal.strIngredient14;
+  ingredientList[14] = meal.strMeasure15 + " " + meal.strIngredient15;
+  ingredientList[15] = meal.strMeasure16 + " " + meal.strIngredient16;
+  ingredientList[16] = meal.strMeasure17 + " " + meal.strIngredient17;
+  ingredientList[17] = meal.strMeasure18 + " " + meal.strIngredient18;
+  ingredientList[18] = meal.strMeasure19 + " " + meal.strIngredient19;
+  ingredientList[19] = meal.strMeasure20 + " " + meal.strIngredient20;
+
+  console.log(comments);
   return (
     <div className={"mt-3"}>
       <h1>{meal.strMeal}</h1>
 
-      <div></div>
+      <h5>
+        <span className="badge bg-secondary">{meal.strArea}</span>{" "}
+        <span className="badge bg-secondary">{meal.strCategory}</span>
+      </h5>
 
       <Row>
         <Col sm={"12"} md={"6"}>
@@ -79,17 +117,24 @@ const MealDetails = () => {
             alt={"Picture of " + meal.strMeal}
             src={meal.strMealThumb}
           />
-
           <h3>Ingredients:</h3>
           <ul>{ingredientList.map((u) => u.length > 2 && <li>{u}</li>)}</ul>
         </Col>
-        <Col className={"two"}>
-          <ol>
-            <h3>Instructions:</h3>
-            {instructions.map((u) => u.length > 2 && <li>{u}</li>)}
-          </ol>
+        <Col>
+          <h3>Instructions:</h3>
+          <ol>{instructions.map((u) => u.length > 2 && <li>{u}</li>)}</ol>
         </Col>
       </Row>
+
+      <hr />
+
+      <h3>Comments</h3>
+
+      <ul className={"list-group"}>
+        {comments.map((u) => (
+          <CommentComponent comment={u} />
+        ))}
+      </ul>
     </div>
   );
 };
