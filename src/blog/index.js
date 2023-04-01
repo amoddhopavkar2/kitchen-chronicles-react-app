@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllBlogsThunk } from "./blog-thunks";
 import { parseTime } from "./parseTime";
 import { Link } from "react-router-dom";
+import { userLikesFoodThunk } from "../likes/likes-thunks";
+import { followUserThunk } from "../follows/follows-thunks";
 
 const blogs = [
   {
@@ -28,6 +30,12 @@ const Blog = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.users);
   const { blog, loading } = useSelector((state) => state.blog);
+
+  const [liked, setLiked] = useState(false);
+  const handleLikeBtn = () => {
+    dispatch(userLikesFoodThunk());
+  };
+
   useEffect(() => {
     dispatch(getAllBlogsThunk());
   }, []);
@@ -35,9 +43,7 @@ const Blog = () => {
   console.log(blog, loading);
   return (
     <div>
-      {currentUser === null ? (
-        <p>Please login to create a blog</p>
-      ) : (
+      {currentUser !== null && currentUser.role === "BLOGGER" && (
         <Button onClick={() => navigate("create")}>Create</Button>
       )}
 
@@ -51,6 +57,14 @@ const Blog = () => {
             key={b._id}
           >
             <h5>{b.title}</h5>
+
+            {/*{*/}
+            {/*    liked ?*/}
+            {/*    <i onClick={handleLikeBtn} className={`${currentUser ? '' : 'd-none'} text-danger float-end bi bi-heart-fill me-2`}></i>*/}
+            {/*             :*/}
+            {/*    <i onClick={handleLikeBtn} className={`${currentUser ? '' : 'd-none'} float-end bi bi-heart me-2`}></i>*/}
+            {/*}*/}
+
             <div className={"text-secondary"}>
               <span>By: {b.author.authorName}</span>
               <i className="bi bi-dot"></i>

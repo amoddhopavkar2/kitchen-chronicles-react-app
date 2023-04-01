@@ -6,9 +6,11 @@ import ReactMarkdown from "react-markdown";
 import { parseTime } from "./parseTime";
 import Container from "react-bootstrap/Container";
 import { Alert } from "react-bootstrap";
+import { userLikesFoodThunk } from "../likes/likes-thunks";
 
 const BlogDetails = () => {
   const { bid } = useParams();
+  const { currentUser } = useSelector((state) => state.users);
   const { blogById, loading, blogNotFoundError } = useSelector(
     (state) => state.blog
   );
@@ -39,13 +41,28 @@ const BlogDetails = () => {
             <>
               <h1>{blogById.title}</h1>
               <div className={"text-secondary"}>
-                <span>
-                  By:{" "}
-                  <Link to={"/profile"} className={" text-secondary"}>
-                    {blogById.author !== undefined &&
-                      blogById.author.authorName}
-                  </Link>
-                </span>
+                {/*                    {*/}
+                {/*                        blogById.author !== undefined &&*/}
+
+                {/*                <span>By: <Link to={'/profile/' + blogById.author.authorId} className={' text-secondary'}>*/}
+                {/*                    {blogById.author.authorName}*/}
+                {/*                </Link></span> }*/}
+                {blogById.author && (
+                  <span>
+                    <span>
+                      By:{" "}
+                      <Link
+                        to={"/profile/" + blogById.author.authorId}
+                        className={" text-secondary"}
+                      >
+                        {blogById.author.authorName}
+                      </Link>
+                    </span>
+                    {/*<i onClick={() => {*/}
+                    {/*    dispatch(userLikesFoodThunk(bid))*/}
+                    {/*}} className={`${currentUser ? '' : 'd-none'} float-end bi bi-heart me-2`}></i>*/}
+                  </span>
+                )}
                 <i className="bi bi-dot"></i>
                 <span>{parseTime(blogById.time)}</span>
               </div>
