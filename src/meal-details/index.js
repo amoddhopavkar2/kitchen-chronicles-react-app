@@ -9,8 +9,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import { parseTime } from "../blog/parseTime";
-import { userLikesFoodThunk } from "../likes/likes-thunks";
 import {
   createReviewThunk,
   findReviewsByFoodThunk,
@@ -86,12 +84,6 @@ const MealDetails = () => {
       {!loading && (
         <>
           <h2>{meal.strMeal}</h2>
-
-          {/*<i onClick={() => {*/}
-          {/*    dispatch(userLikesFoodThunk(mid))*/}
-          {/*}}*/}
-          {/*   className={`${currentUser ? '' : 'd-none'} float-end bi bi-heart me-2`}></i>*/}
-
           <h5>
             <span className="badge bg-secondary">{meal.strArea}</span>{" "}
             <span className="badge bg-secondary">{meal.strCategory}</span>

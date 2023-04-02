@@ -3,36 +3,28 @@ import { useEffect, useState } from "react";
 import { findFoodBySearchTermThunk } from "./search-thunks";
 import MealCard from "../meal-card/mealCard";
 import Row from "react-bootstrap/Row";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Search = () => {
   const { searchName } = useParams();
   const navigate = useNavigate();
-  console.log(searchName);
-  const [searchTerm, setSearchTerm] = useState(searchName);
+  const [searchTerm, setSearchTerm] = useState(searchName || "");
   const { recipes, loading } = useSelector((state) => state.search);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    if (searchTerm === undefined) {
-      dispatch(findFoodBySearchTermThunk(""));
-    } else {
-      dispatch(findFoodBySearchTermThunk(searchTerm));
-    }
-  }, []);
+    dispatch(findFoodBySearchTermThunk(searchTerm));
+  }, [searchTerm]);
 
   const searchHandle = () => {
-    navigate("/search/" + searchTerm);
-    dispatch(findFoodBySearchTermThunk(searchTerm));
+    navigate(`/search/${searchTerm}`);
   };
+
   return (
     <>
       <h2>Search</h2>
       <div>
-        <button
-          className="btn btn-primary float-end"
-          onClick={() => searchHandle()}
-        >
+        <button className="btn btn-primary float-end" onClick={searchHandle}>
           Search
         </button>
         <input
@@ -44,7 +36,8 @@ const Search = () => {
         />
       </div>
       <Row>
-        {recipes && recipes.map((m) => <MealCard meal={m} key={m.idMeal} />)}
+        {recipes &&
+          recipes.map((meal) => <MealCard meal={meal} key={meal.idMeal} />)}
       </Row>
     </>
   );
