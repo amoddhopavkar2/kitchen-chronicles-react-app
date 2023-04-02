@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
+import "./index.css";
 
 const NavbarComponent = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const NavbarComponent = () => {
   return (
     <Navbar collapseOnSelect expand="md" bg="light" variant="light">
       <Container>
-        <Navbar.Brand onClick={() => navigate("/")}>
+        <Navbar.Brand className="wd-cursor" onClick={() => navigate("/")}>
           Kitchen Chronicles
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
