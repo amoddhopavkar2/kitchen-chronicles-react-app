@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "./users-thunk";
 import { Navigate, useNavigate } from "react-router";
 import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";

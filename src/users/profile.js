@@ -255,32 +255,6 @@ const Profile = () => {
                 className={"list-group-item"}
                 onClick={() => navigate(`/meal/details/${u.idMeal}`)}
               >
-                {/*            reviews.map((review) =>*/}
-                {/*                <li>*/}
-                {/*                    <Link to={`/meal/details/${review.idMeal}`}>*/}
-                {/*                        {review.review} {review.idMeal}*/}
-                {/*                    </Link>*/}
-                {/*                </li>*/}
-                {/*            )*/}
-
-                {/*    }*/}
-
-                {/*                */}
-                {/*<h4>Following</h4>*/}
-                {/*<ul className={'list-group'}>*/}
-                {/*    {*/}
-                {/*        following &&*/}
-                {/*        reviews.length === 0 ?*/}
-                {/*            <p>This user haven't followed anyone yet.</p>*/}
-                {/*            :*/}
-                {/*            following.map((follow) =>*/}
-                {/*                <Link to={`/profile/${follow.followed._id}`} className="list-group-item">*/}
-                {/*                    {follow.followed.username}*/}
-                {/*                </Link>*/}
-                {/*            )*/}
-                {/*    }*/}
-                {/*</ul>*/}
-
                 <span className={"fw-bold"}>
                   <Link
                     className={"text-black"}
