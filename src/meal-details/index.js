@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,6 +45,12 @@ const MealDetails = () => {
     dispatch(findReviewsByFoodThunk(mid));
   };
 
+  const navigate = useNavigate();
+  function handleGoBack(event) {
+    event.preventDefault();
+    navigate(-2);
+  }
+
   const ingredientList = [20];
   ingredientList[0] = meal.strMeasure1 + " " + meal.strIngredient1;
   ingredientList[1] = meal.strMeasure2 + " " + meal.strIngredient2;
@@ -69,9 +75,13 @@ const MealDetails = () => {
   return (
     <div className={"mt-3"}>
       <div className={"mb-2"}>
-        <Link to={-1} className={"text-decoration-none text-secondary"}>
+        <a
+          onClick={handleGoBack}
+          href="#"
+          className={"text-decoration-none text-secondary"}
+        >
           <i className="bi bi-arrow-left me-1"></i>Back
-        </Link>
+        </a>
       </div>
       {!loading && (
         <>
