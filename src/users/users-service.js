@@ -1,6 +1,9 @@
 import axios from "axios";
+import dotenv from "dotenv";
 
-const USER_API_URL = "http://localhost:4000/users";
+dotenv.config();
+
+const USER_API_URL = process.env.REACT_API_BASE;
 const BASE_API_URL = "http://localhost:4000";
 
 const api = axios.create({ withCredentials: true });
