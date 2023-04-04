@@ -32,6 +32,7 @@ const reviewsReducer = createSlice({
       state.reviews = action.payload;
     },
     [findReviewsByAuthorThunk.fulfilled]: (state, action) => {
+      console.log(action.payload);
       state.reviews = action.payload;
       console.log("after", action.reviews);
     },

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_API_URL = process.env.REACT_API_BASE || "https://kitchen-chronicles-node-app.onrender.com";
+const BASE_API_URL = process.env.REACT_API_BASE || "http://localhost:4000";
 const BLOG_API = BASE_API_URL + "/blog";
 
 const api = axios.create({ withCredentials: true });
