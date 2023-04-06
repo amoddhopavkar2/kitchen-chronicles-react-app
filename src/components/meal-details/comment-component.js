@@ -8,6 +8,7 @@ import {
   deleteReviewThunk,
   updateReviewThunk,
 } from "../reviews/reviews-thunks";
+import "../index.css";
 
 const CommentComponent = ({ rerender, u }) => {
   const { currentUser } = useSelector((event) => event.users);

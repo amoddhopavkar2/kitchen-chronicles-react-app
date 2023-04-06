@@ -7,7 +7,7 @@ import { parseTime } from "./parseTime";
 import { Link } from "react-router-dom";
 import { userLikesFoodThunk } from "../likes/likes-thunks";
 import { followUserThunk } from "../follows/follows-thunks";
-import "./index.css";
+import "../index.css";
 
 const blogs = [
   {
