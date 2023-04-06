@@ -75,7 +75,7 @@ const MealDetails = () => {
       <div className={"mb-2"}>
         <a
           onClick={handleGoBack}
-          href="#"
+          href="src/components/meal-details#"
           className={"text-decoration-none text-secondary"}
         >
           <i className="bi bi-arrow-left me-1"></i>Back

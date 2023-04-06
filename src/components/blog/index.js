@@ -7,6 +7,7 @@ import { parseTime } from "./parseTime";
 import { Link } from "react-router-dom";
 import { userLikesFoodThunk } from "../likes/likes-thunks";
 import { followUserThunk } from "../follows/follows-thunks";
+import "./index.css";
 
 const blogs = [
   {
@@ -52,18 +53,11 @@ const Blog = () => {
       <ul className={"list-group"}>
         {blog.map((b) => (
           <li
-            className={"list-group-item"}
+            className={"list-group-item wd-cursor-pointer"}
             onClick={() => navigate("details/" + b._id)}
             key={b._id}
           >
             <h5>{b.title}</h5>
-
-            {/*{*/}
-            {/*    liked ?*/}
-            {/*    <i onClick={handleLikeBtn} className={`${currentUser ? '' : 'd-none'} text-danger float-end bi bi-heart-fill me-2`}></i>*/}
-            {/*             :*/}
-            {/*    <i onClick={handleLikeBtn} className={`${currentUser ? '' : 'd-none'} float-end bi bi-heart me-2`}></i>*/}
-            {/*}*/}
 
             <div className={"text-secondary"}>
               <span>By: {b.author.authorName}</span>

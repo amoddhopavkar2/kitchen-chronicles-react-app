@@ -33,7 +33,7 @@ const CommentComponent = ({ rerender, u }) => {
       {!editable && currentUser && currentUser._id === u.author._id && (
         <h5>
           <i
-            className="bi bi-pencil-fill float-end"
+            className="bi bi-pencil-fill float-end wd-cursor-pointer"
             onClick={() => setEditable(!editable)}
           ></i>
         </h5>
