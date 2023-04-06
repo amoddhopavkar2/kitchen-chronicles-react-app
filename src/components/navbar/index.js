@@ -30,6 +30,14 @@ const NavbarComponent = () => {
     </>
   );
 
+  const renderAdminDashboard = () => (
+    <>
+      <Nav.Link onClick={() => handleNavbarClick("/admin")}>
+        Admin Dashboard
+      </Nav.Link>
+    </>
+  );
+
   return (
     <Navbar collapseOnSelect expand="md" bg="light" variant="light">
       <Container>
@@ -46,6 +54,10 @@ const NavbarComponent = () => {
               Recipes
             </Nav.Link>
             <Nav.Link onClick={() => handleNavbarClick("/blog")}>Blog</Nav.Link>
+
+            {currentUser !== null && currentUser.role === "ADMIN" && (
+              <Nav>{currentUser ? renderAdminDashboard() : ""}</Nav>
+            )}
           </Nav>
           <Nav>
             {currentUser ? renderLoggedInLinks() : renderLoggedOutLinks()}
