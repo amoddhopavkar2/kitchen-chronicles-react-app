@@ -9,7 +9,7 @@ import {
   register,
   updateUser,
   updateProfile,
-} from "./users-service";
+} from "../../services/users-service";
 import { create } from "axios";
 
 export const logoutThunk = createAsyncThunk(

@@ -5,7 +5,7 @@ import {
   findReviewsByAuthor,
   findReviewsByFood,
   updateReviewService,
-} from "./reviews-service";
+} from "../../services/reviews-service";
 
 export const createReviewThunk = createAsyncThunk(
   "createReviewThunk",

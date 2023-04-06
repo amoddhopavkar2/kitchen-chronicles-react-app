@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { findFollowing, findFollowers, followUser } from "./follows-service";
+import { findFollowing, findFollowers, followUser } from "../../services/follows-service";
 
 export const followUserThunk = createAsyncThunk(
   "followUser",

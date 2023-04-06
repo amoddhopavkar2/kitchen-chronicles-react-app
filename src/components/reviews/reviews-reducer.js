@@ -6,7 +6,7 @@ import {
   findReviewsByFoodThunk,
   updateReviewThunk,
 } from "./reviews-thunks";
-import { deleteReviewService } from "./reviews-service";
+import { deleteReviewService } from "../../services/reviews-service";
 
 const reviewsReducer = createSlice({
   name: "reviews",
