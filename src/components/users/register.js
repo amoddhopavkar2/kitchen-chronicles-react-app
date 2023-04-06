@@ -182,6 +182,15 @@ const Register = () => {
             checked={role === "CRITIC"}
             onChange={(event) => setRole(event.target.value)}
           />
+          <Form.Check
+            type={"radio"}
+            name={"registerRolesRadio"}
+            label={`Admin`}
+            value={"ADMIN"}
+            id={`registerRoleAdmin`}
+            checked={role === "ADMIN"}
+            onChange={(event) => setRole(event.target.value)}
+          />
         </Form.Group>
         <Form.Text>
           Already have an account? <Link to={"/login"}>Login</Link>.
