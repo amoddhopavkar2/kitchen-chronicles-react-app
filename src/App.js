@@ -24,6 +24,7 @@ import BlogReducer from "./components/blog/blog-reducer";
 import usersReducer from "./components/users/users-reducer";
 import reviewsReducer from "./components/reviews/reviews-reducer";
 import followsReducer from "./components/follows/follows-reducer";
+import AdminDashboard from "./components/admin-dashboard";
 
 const store = configureStore({
   reducer: {
@@ -50,6 +51,7 @@ function App() {
               <Route path="/search/:searchName" element={<Search />} />
               <Route path="/meal/details/:mid" element={<MealDetails />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/admin" element={<AdminDashboard />} />
               <Route
                 path="/blog/create"
                 element={
