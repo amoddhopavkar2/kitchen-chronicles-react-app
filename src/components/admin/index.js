@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { adminStatsThunk } from "./admin-thunk";
+import axios from "axios";
+
+const BASE_API_URL = process.env.REACT_API_BASE || "http://localhost:4000";
 
 const AdminDashboard = () => {
   const MONTHS = useMemo(
@@ -25,12 +27,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const getStats = async () => {
       try {
-        const res = await axios.get("/users/stats", {
-          headers: {
-            token:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZTZmYzQ2NDk0Mjc3MTYwNDg4MmMxNiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYyNTgzMjMxMSwiZXhwIjoxNjI2MjY0MzExfQ.ATXV-1TTWIGyVBttTQSf0erRWjsgZ8jHQv1ZsUixbng",
-          },
-        });
+        const res = await axios.get(`${BASE_API_URL}/stats`);
         const statsList = res.data.sort(function (a, b) {
           return a._id - b._id;
         });
@@ -41,20 +38,16 @@ const AdminDashboard = () => {
           ])
         );
       } catch (err) {
+        console.log("Error");
         console.log(err);
       }
     };
     getStats();
   }, [MONTHS]);
-
+  console.log(userStats);
   return (
     <div className="home">
-      <FeaturedInfo />
-      <Chart data={userStats} title="User Analytics" grid dataKey="New User" />
-      <div className="homeWidgets">
-        <WidgetSm />
-        <WidgetLg />
-      </div>
+      <div className="homeWidgets"></div>
     </div>
   );
 };
