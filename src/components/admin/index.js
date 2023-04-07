@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import axios from "axios";
+import { adminStatsThunk } from "./admin-thunk";
 
 const AdminDashboard = () => {
   const MONTHS = useMemo(
