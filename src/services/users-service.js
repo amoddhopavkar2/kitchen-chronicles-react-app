@@ -53,7 +53,3 @@ export const updateUser = async (user) => {
   return user;
 };
 
-export const userStats = async () => {
-  const response = await api.get(`${BASE_API_URL}/stats`);
-  return response.data;
-};
