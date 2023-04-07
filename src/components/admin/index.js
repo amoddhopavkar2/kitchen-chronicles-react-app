@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import Chart from "./chart";
 import axios from "axios";
 
 const BASE_API_URL = process.env.REACT_API_BASE || "http://localhost:4000";
@@ -38,8 +39,8 @@ const AdminDashboard = () => {
           ])
         );
       } catch (err) {
-        console.log("Error");
         console.log(err);
+        throw err;
       }
     };
     getStats();
@@ -47,7 +48,7 @@ const AdminDashboard = () => {
   console.log(userStats);
   return (
     <div className="home">
-      <div className="homeWidgets"></div>
+      <Chart data={userStats} title="User Analytics" grid dataKey="New User" />
     </div>
   );
 };
