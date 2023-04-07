@@ -26,6 +26,7 @@ export const logout = async () => {
   const response = await api.post(`${BASE_API_URL}/logout`);
   return response.data;
 };
+
 export const profile = async () => {
   const response = await api.post(`${BASE_API_URL}/profile`);
   return response.data;
@@ -50,4 +51,9 @@ const deleteUser = () => {};
 export const updateUser = async (user) => {
   const response = await axios.put(`${USER_API_URL}/${user._id}`, user);
   return user;
+};
+
+export const userStats = async () => {
+  const response = await api.get(`${BASE_API_URL}/stats`);
+  return response.data;
 };

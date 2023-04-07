@@ -24,8 +24,8 @@ import BlogReducer from "./components/blog/blog-reducer";
 import usersReducer from "./components/users/users-reducer";
 import reviewsReducer from "./components/reviews/reviews-reducer";
 import followsReducer from "./components/follows/follows-reducer";
-import AdminDashboard from "./components/admin-dashboard";
-import ProtectedAdminDashboard from "./components/admin-dashboard/protected-admin-dashboard";
+import AdminDashboard from "./components/admin";
+import ProtectedAdminDashboard from "./components/admin/protected-admin-dashboard";
 
 const store = configureStore({
   reducer: {
