@@ -48,7 +48,7 @@ const AdminDashboard = () => {
   console.log(userStats);
   return (
     <div className="home">
-      <Chart data={userStats} title="User Analytics" grid dataKey="New User" />
+      <Chart data={userStats} title="New Users" grid dataKey="New User" />
     </div>
   );
 };
