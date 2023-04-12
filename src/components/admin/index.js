@@ -14,7 +14,7 @@ const AdminDashboard = () => {
       "May",
       "Jun",
       "Jul",
-      "Agu",
+      "Aug",
       "Sep",
       "Oct",
       "Nov",
@@ -35,7 +35,7 @@ const AdminDashboard = () => {
         statsList.map((item) =>
           setUserStats((prev) => [
             ...prev,
-            { name: MONTHS[item._id - 1], "New User": item.total },
+            { name: MONTHS[item._id - 1], "New Users": item.total },
           ])
         );
       } catch (err) {
@@ -45,10 +45,13 @@ const AdminDashboard = () => {
     };
     getStats();
   }, [MONTHS]);
+  
+  const monthlyUserStats = userStats.slice(0, 12);
   console.log(userStats);
+  console.log(monthlyUserStats);
   return (
     <div className="home">
-      <Chart data={userStats} title="New Users" grid dataKey="New User" />
+      <Chart data={monthlyUserStats} title="New Users" grid dataKey="New Users" />
     </div>
   );
 };
