@@ -25,6 +25,7 @@ function AdminDashboard() {
 
   const [userStats, setUserStats] = useState([]);
   const api = axios.create({ withCredentials: true });
+  
   useEffect(() => {
     const getStats = async () => {
       try {
@@ -100,9 +101,8 @@ function AdminDashboard() {
         <ul>
           {reviews.map((review) => (
             <li key={review.id}>
-              <p>{review.text}</p>
-              <p>Rating: {review.rating}/5</p>
-              <button onClick={() => handleReviewDelete(review.id)}>
+              <p>{review.review}</p>
+              <button onClick={() => handleReviewDelete(review._id)}>
                 Delete
               </button>
             </li>
