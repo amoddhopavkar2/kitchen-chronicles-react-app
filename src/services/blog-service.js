@@ -26,7 +26,6 @@ export const getBlogsByUserIdService = async (uid) => {
 };
 
 export const deleteBlog = async (bid) => {
-  const response = await axios.delete(`${BLOG_API}/${bid}`);
-  const status = response.data;
-  return bid;
+  const response = await api.delete(`${BLOG_API}/${bid}`);
+  return response.data;
 };
