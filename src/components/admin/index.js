@@ -64,8 +64,15 @@ function AdminDashboard() {
   }, []);
 
   const handleReviewDelete = (id) => {
-    const updatedReviews = reviews.filter((review) => review.id !== id);
-    setReviews(updatedReviews);
+    api
+      .delete(`http://localhost:4000/api/reviews/meal/${id}`)
+      .then(() => {
+        const updatedReviews = reviews.filter((review) => review._id !== id);
+        setReviews(updatedReviews);
+      })
+      .catch((error) => {
+        console.error(`Error deleting blog with id ${id}: ${error.message}`);
+      });
   };
 
   const handleBlogDelete = (id) => {
