@@ -24,11 +24,11 @@ function AdminDashboard() {
   );
 
   const [userStats, setUserStats] = useState([]);
-
+  const api = axios.create({ withCredentials: true });
   useEffect(() => {
     const getStats = async () => {
       try {
-        const res = await axios.get(`${BASE_API_URL}/stats`);
+        const res = await api.get(`${BASE_API_URL}/stats`);
         const statsList = res.data.sort(function (a, b) {
           return a._id - b._id;
         });
@@ -64,13 +64,13 @@ function AdminDashboard() {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:4000/api/reviews").then((response) => {
+    api.get("http://localhost:4000/api/reviews").then((response) => {
       setReviews(response.data);
     });
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:4000/blog").then((response) => {
+    api.get("http://localhost:4000/blog").then((response) => {
       setBlogs(response.data);
     });
   }, []);
@@ -81,8 +81,15 @@ function AdminDashboard() {
   };
 
   const handleBlogDelete = (id) => {
-    const updatedBlogs = blogs.filter((blog) => blog.id !== id);
-    setBlogs(updatedBlogs);
+    api
+      .delete(`http://localhost:4000/blog/${id}`)
+      .then(() => {
+        const updatedBlogs = blogs.filter((blog) => blog._id !== id);
+        setBlogs(updatedBlogs);
+      })
+      .catch((error) => {
+        console.error(`Error deleting blog with id ${id}: ${error.message}`);
+      });
   };
 
   return (
