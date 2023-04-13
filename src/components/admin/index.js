@@ -48,18 +48,6 @@ function AdminDashboard() {
 
   const monthlyUserStats = userStats.slice(0, 12);
 
-  // const initialReviews = [
-  //   { id: 1, text: "This product is great!", rating: 5 },
-  //   { id: 2, text: "I had a terrible experience with this company.", rating: 2 },
-  //   { id: 3, text: "The service was amazing!", rating: 4 },
-  // ];
-
-  // const initialBlogs = [
-  //   { id: 1, title: "10 Ways to Improve Your Marketing Strategy", author: "John Doe" },
-  //   { id: 2, title: "The Benefits of Meditation for Productivity", author: "Jane Smith" },
-  //   { id: 3, title: "The Top 5 Destinations for Adventure Travel", author: "Bob Johnson" },
-  // ];
-
   const [reviews, setReviews] = useState([]);
   const [blogs, setBlogs] = useState([]);
 
