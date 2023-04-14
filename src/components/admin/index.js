@@ -91,48 +91,50 @@ function AdminDashboard() {
 
   return (
     <div className="home">
-      <Chart
-        data={monthlyUserStats}
-        title="Monthly New Users"
-        grid
-        dataKey="New Users"
-      />
-      <div className="reviews">
-        <h2>All Reviews</h2>
-        <ul>
-          {reviews.map((review) => (
-            <li key={review.id}>
-              <p>{review.review}</p>
-              <Button
-                variant={"danger"}
-                className={"me-2"}
-                onClick={() => handleReviewDelete(review._id)}
-              >
-                Delete
-              </Button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="blogs">
-        <h2>All Blogs</h2>
-        <ul>
-          {blogs.map((blog) => (
-            <li key={blog._id}>
-              <h5>{blog.title}</h5>
-              <p>Author: {blog.author.authorName}</p>
-              <p>{blog.blog}</p>
-              <Button
-                variant={"danger"}
-                className={"me-2"}
-                onClick={() => handleBlogDelete(blog._id)}
-              >
-                Delete
-              </Button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <h2>Monthly New Users</h2>
+      <Chart data={monthlyUserStats} title="" grid dataKey="New Users" />
+
+      {reviews.length > 0 && (
+        <div className="reviews">
+          <h2>All Reviews</h2>
+          <ul>
+            {reviews.map((review) => (
+              <li key={review.id}>
+                <p>{review.review}</p>
+                <Button
+                  variant={"danger"}
+                  className={"me-2"}
+                  onClick={() => handleReviewDelete(review._id)}
+                >
+                  Delete
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      
+      {blogs.length > 0 && (
+        <div className="blogs">
+          <h2>All Blogs</h2>
+          <ul>
+            {blogs.map((blog) => (
+              <li key={blog._id}>
+                <h5>{blog.title}</h5>
+                <p>Author: {blog.author.authorName}</p>
+                <p>{blog.blog}</p>
+                <Button
+                  variant={"danger"}
+                  className={"me-2"}
+                  onClick={() => handleBlogDelete(blog._id)}
+                >
+                  Delete
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
