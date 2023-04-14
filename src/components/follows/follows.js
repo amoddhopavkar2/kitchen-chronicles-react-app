@@ -26,7 +26,7 @@ const Follows = ({ uid }) => {
             </Link>
           ))
         ) : (
-          <p>This user haven't followed anyone .</p>
+          <p>This user has not followed anyone yet.</p>
         )}
       </div>
       <h2>Followers</h2>
@@ -41,7 +41,7 @@ const Follows = ({ uid }) => {
             </Link>
           ))
         ) : (
-          <p>This user don't have followers yet.</p>
+          <p>This user does not have any followers yet.</p>
         )}
       </div>
     </>

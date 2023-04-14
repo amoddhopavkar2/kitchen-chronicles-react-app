@@ -16,10 +16,12 @@ export const updateReviewThunk = createAsyncThunk(
   "updateReviewThunk",
   async (comment) => updateReviewService(comment)
 );
+
 export const findReviewsByFoodThunk = createAsyncThunk(
   "findReviewsByFoodThunk",
   async (idMeal) => findReviewsByFood(idMeal)
 );
+
 export const findReviewsByAuthorThunk = createAsyncThunk(
   "findReviewsByAuthorThunk",
   async (author) => findReviewsByAuthor(author)

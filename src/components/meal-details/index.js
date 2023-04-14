@@ -13,6 +13,7 @@ import {
   createReviewThunk,
   findReviewsByFoodThunk,
 } from "../reviews/reviews-thunks";
+import { userLikesFoodThunk } from "../likes/likes-thunks";
 import CommentComponent from "./comment-component";
 import Container from "react-bootstrap/Container";
 
@@ -41,6 +42,13 @@ const MealDetails = () => {
 
   const reloadComments = () => {
     dispatch(findReviewsByFoodThunk(mid));
+  };
+
+  const likeMeal = () => {
+    const like = {
+      idMeal: meal.idMeal,
+    };
+    dispatch(userLikesFoodThunk(like));
   };
 
   const navigate = useNavigate();
@@ -87,6 +95,9 @@ const MealDetails = () => {
           <h5>
             <span className="badge bg-secondary">{meal.strArea}</span>{" "}
             <span className="badge bg-secondary">{meal.strCategory}</span>
+            <Button variant="primary" onClick={() => likeMeal()}>
+              Like
+            </Button>
           </h5>
           <Container>
             <Row>

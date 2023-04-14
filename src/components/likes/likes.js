@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { findFoodLikedByUserThunk } from "./likes-thunks";
+import { userLikesFoodThunk } from "./likes-thunks";
 
 const Likes = ({ uid, p1, p2 }) => {
   const likes = [uid];
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(findFoodLikedByUserThunk(uid));
+    dispatch(userLikesFoodThunk(uid));
   }, []);
   return (
     <>
