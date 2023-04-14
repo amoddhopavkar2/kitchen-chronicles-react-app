@@ -44,12 +44,11 @@ const Blog = () => {
   console.log(blog, loading);
   return (
     <div>
-      {currentUser !== null && currentUser.role === "BLOGGER" && (
-        <Button onClick={() => navigate("create")}>Create</Button>
-      )}
-
+      {currentUser !== null &&
+        (currentUser.role === "BLOGGER" || currentUser.role === "ADMIN") && (
+          <Button onClick={() => navigate("create")}>Create</Button>
+        )}
       <h2>Recent Blog</h2>
-
       <ul className={"list-group"}>
         {blog.map((b) => (
           <li

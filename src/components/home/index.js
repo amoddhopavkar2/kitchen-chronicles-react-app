@@ -32,7 +32,7 @@ const Home = () => {
           </h1>
         )}
 
-        {currentUser?.role === "BLOGGER" && (
+        {(currentUser?.role === "BLOGGER" || currentUser?.role === "ADMIN") && (
           <>
             <h4>Recent Blogs</h4>
             <ul className="list-group mb-3">
