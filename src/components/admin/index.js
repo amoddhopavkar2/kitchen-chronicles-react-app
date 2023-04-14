@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import Button from "react-bootstrap/Button";
 import Chart from "./chart";
 import axios from "axios";
 
@@ -25,7 +26,7 @@ function AdminDashboard() {
 
   const [userStats, setUserStats] = useState([]);
   const api = axios.create({ withCredentials: true });
-  
+
   useEffect(() => {
     const getStats = async () => {
       try {
@@ -102,9 +103,13 @@ function AdminDashboard() {
           {reviews.map((review) => (
             <li key={review.id}>
               <p>{review.review}</p>
-              <button onClick={() => handleReviewDelete(review._id)}>
+              <Button
+                variant={"danger"}
+                className={"me-2"}
+                onClick={() => handleReviewDelete(review._id)}
+              >
                 Delete
-              </button>
+              </Button>
             </li>
           ))}
         </ul>
@@ -117,7 +122,13 @@ function AdminDashboard() {
               <h5>{blog.title}</h5>
               <p>Author: {blog.author.authorName}</p>
               <p>{blog.blog}</p>
-              <button onClick={() => handleBlogDelete(blog._id)}>Delete</button>
+              <Button
+                variant={"danger"}
+                className={"me-2"}
+                onClick={() => handleBlogDelete(blog._id)}
+              >
+                Delete
+              </Button>
             </li>
           ))}
         </ul>
