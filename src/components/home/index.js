@@ -5,7 +5,6 @@ import { findReviewsByAuthorThunk } from "../reviews/reviews-thunks";
 import { findUserByIdThunk } from "../users/users-thunk";
 import { getBlogsByUserIdThunk } from "../blog/blog-thunks";
 import { parseTime } from "../blog/parseTime";
-import { userLikesFoodThunk } from "../likes/likes-thunks";
 import RandomRecipes from "../random-recipe";
 
 const Home = () => {
@@ -48,12 +47,6 @@ const Home = () => {
                       key={b._id}
                     >
                       <h5>{b.title}</h5>
-                      <i
-                        onClick={() => {
-                          dispatch(userLikesFoodThunk());
-                        }}
-                        className="red"
-                      ></i>
                       <div className="text-secondary">
                         <span>By: {b.author.authorName}</span>
                         <i className="bi bi-dot"></i>

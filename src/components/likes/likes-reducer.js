@@ -1,17 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userLikesFoodThunk } from "./likes-thunks";
+import { findLikesByUserThunk, userLikesFoodThunk } from "./likes-thunks";
 
-const initialState = {
-  likes: [],
-  loading: false,
-};
-
-export const likesReducer = createSlice({
+const likesReducer = createSlice({
   name: "likes",
-  initialState,
+  initialState: {
+    likes: [],
+  },
   extraReducers: {
     [userLikesFoodThunk.fulfilled]: (state, action) => {
-      state.likes.push(action.payload);
+      state.likes.unshift(action.payload);
+    },
+    [findLikesByUserThunk.fulfilled]: (state, action) => {
+      state.likes = action.payload;
     },
   },
 });
+
+export default likesReducer.reducer;

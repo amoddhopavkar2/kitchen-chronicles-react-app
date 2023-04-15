@@ -16,6 +16,12 @@ import {
 import { userLikesFoodThunk } from "../likes/likes-thunks";
 import CommentComponent from "./comment-component";
 import Container from "react-bootstrap/Container";
+import axios from "axios";
+
+const BASE_API_URL = process.env.REACT_API_BASE || "http://localhost:4000";
+const USERS_URL = BASE_API_URL + "/users";
+
+const api = axios.create({ withCredentials: true });
 
 const MealDetails = () => {
   const { currentUser } = useSelector((state) => state.users);
@@ -24,6 +30,8 @@ const MealDetails = () => {
   const dispatch = useDispatch();
   const { mid } = useParams();
   const [comment, setComment] = useState("");
+  const [liked, setLiked] = useState(false);
+  const [userLikes, setUserLikes] = useState([]);
 
   useEffect(() => {
     dispatch(mealDetailsThunks(mid));
@@ -44,14 +52,35 @@ const MealDetails = () => {
     dispatch(findReviewsByFoodThunk(mid));
   };
 
+  useEffect(() => {
+    if (currentUser) {
+      api.get(`${USERS_URL}/${currentUser._id}/likes`).then((response) => {
+        setUserLikes(response.data);
+      });
+    }
+  }, [currentUser]);
+
+  const likedMeals = userLikes
+    .filter((like) => like.liked === true)
+    .map((like) => like.idMeal);
+  console.log(likedMeals);
+
   const likeMeal = () => {
-    const like = {
-      idMeal: meal.idMeal,
-    };
-    dispatch(userLikesFoodThunk(like));
+    if (!liked) {
+      const like = {
+        idMeal: meal.idMeal,
+      };
+      dispatch(userLikesFoodThunk(like));
+      setLiked(true);
+    } else {
+      // Delete Like
+      setLiked(false);
+    }
+    console.log(liked);
   };
 
   const navigate = useNavigate();
+
   function handleGoBack(event) {
     event.preventDefault();
     navigate(-2);
@@ -95,9 +124,15 @@ const MealDetails = () => {
           <h5>
             <span className="badge bg-secondary">{meal.strArea}</span>{" "}
             <span className="badge bg-secondary">{meal.strCategory}</span>
-            <Button variant="primary" onClick={() => likeMeal()}>
-              Like
-            </Button>
+            {currentUser !== null && (
+              <Button
+                className="primary"
+                disabled={!currentUser}
+                onClick={() => likeMeal()}
+              >
+                {liked ? "Liked" : "Not Liked"}
+              </Button>
+            )}
           </h5>
           <Container>
             <Row>

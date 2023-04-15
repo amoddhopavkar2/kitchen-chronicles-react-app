@@ -11,3 +11,8 @@ export const createLike = async (like) => {
   const response = await api.post(`${LIKES_URL}/${like.idMeal}`, like);
   return response.data;
 };
+
+export const findLikesByUser = async (user) => {
+  const response = await api.get(`${USERS_URL}/${user}/likes`);
+  return response;
+};
