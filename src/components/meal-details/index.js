@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,11 @@ import {
 import { userLikesFoodThunk } from "../likes/likes-thunks";
 import CommentComponent from "./comment-component";
 import Container from "react-bootstrap/Container";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as faSolidHeart } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import "./index.css";
 
 const BASE_API_URL = process.env.REACT_API_BASE || "http://localhost:4000";
 const USERS_URL = BASE_API_URL + "/users";
@@ -65,7 +69,14 @@ const MealDetails = () => {
     .map((like) => like.idMeal);
   console.log(likedMeals);
 
-  const likeMeal = () => {
+  useEffect(() => {
+    if (likedMeals.includes(meal.idMeal)) {
+      setLiked(true);
+    }
+  }, [likedMeals, meal.idMeal]);
+  console.log(liked);
+
+  const toggleMealLike = () => {
     if (!liked) {
       const like = {
         idMeal: meal.idMeal,
@@ -124,15 +135,14 @@ const MealDetails = () => {
           <h5>
             <span className="badge bg-secondary">{meal.strArea}</span>{" "}
             <span className="badge bg-secondary">{meal.strCategory}</span>
-            {currentUser !== null && (
-              <Button
-                className="primary"
-                disabled={!currentUser}
-                onClick={() => likeMeal()}
-              >
-                {liked ? "Liked" : "Not Liked"}
-              </Button>
-            )}
+            <span disabled={!currentUser} onClick={() => toggleMealLike()}>
+              {currentUser && liked && (
+                <span class="wd-red wd-pointer">
+                  <FontAwesomeIcon icon={faSolidHeart} />
+                </span>
+              )}
+              {currentUser && !liked && <FontAwesomeIcon icon={faHeart} />}
+            </span>
           </h5>
           <Container>
             <Row>
