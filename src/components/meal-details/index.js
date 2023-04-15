@@ -60,21 +60,13 @@ const MealDetails = () => {
     if (currentUser) {
       api.get(`${USERS_URL}/${currentUser._id}/likes`).then((response) => {
         setUserLikes(response.data);
+        const isLiked = response.data.some(
+          (like) => like.idMeal === meal.idMeal && like.liked
+        );
+        setLiked(isLiked);
       });
     }
-  }, [currentUser]);
-
-  const likedMeals = userLikes
-    .filter((like) => like.liked === true)
-    .map((like) => like.idMeal);
-  console.log(likedMeals);
-
-  useEffect(() => {
-    if (likedMeals.includes(meal.idMeal)) {
-      setLiked(true);
-    }
-  }, [likedMeals, meal.idMeal]);
-  console.log(liked);
+  }, [currentUser, meal.idMeal]);
 
   const toggleMealLike = () => {
     if (!liked) {
@@ -84,10 +76,14 @@ const MealDetails = () => {
       dispatch(userLikesFoodThunk(like));
       setLiked(true);
     } else {
-      // Delete Like
-      setLiked(false);
+      api
+        .delete(`${USERS_URL}/${currentUser._id}/likes/${meal.idMeal}`)
+        .then(() => {
+          setLiked(false);
+          setUserLikes(userLikes.filter((like) => like.idMeal !== meal.idMeal));
+        })
+        .catch((error) => console.log(error));
     }
-    console.log(liked);
   };
 
   const navigate = useNavigate();
@@ -135,9 +131,9 @@ const MealDetails = () => {
           <h5>
             <span className="badge bg-secondary">{meal.strArea}</span>{" "}
             <span className="badge bg-secondary">{meal.strCategory}</span>
-            <span disabled={!currentUser} onClick={() => toggleMealLike()}>
+            <span className="wd-float-right wd-pointer" disabled={!currentUser} onClick={() => toggleMealLike()}>
               {currentUser && liked && (
-                <span class="wd-red wd-pointer">
+                <span className="wd-red wd-pointer">
                   <FontAwesomeIcon icon={faSolidHeart} />
                 </span>
               )}

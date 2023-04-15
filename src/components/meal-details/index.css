@@ -3,5 +3,9 @@
 }
 
 .wd-pointer {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.wd-float-right {
+  float: right;
 }
