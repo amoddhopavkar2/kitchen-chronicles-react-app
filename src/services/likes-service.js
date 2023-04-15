@@ -16,7 +16,3 @@ export const findLikesByUser = async (user) => {
   const response = await api.get(`${USERS_URL}/${user}/likes`);
   return response;
 };
-
-export const deleteLike = async (userID, mealID) => {
-  const response = await api.delete
-}
