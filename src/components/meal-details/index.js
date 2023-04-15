@@ -17,8 +17,11 @@ import { userLikesFoodThunk } from "../likes/likes-thunks";
 import CommentComponent from "./comment-component";
 import Container from "react-bootstrap/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faHeart as faSolidHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faStar } from "@fortawesome/free-regular-svg-icons";
+import {
+  faHeart as faSolidHeart,
+  faStar as faSolidStar,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import "./index.css";
 
@@ -131,13 +134,21 @@ const MealDetails = () => {
           <h5>
             <span className="badge bg-secondary">{meal.strArea}</span>{" "}
             <span className="badge bg-secondary">{meal.strCategory}</span>
-            <span className="wd-float-right wd-pointer" disabled={!currentUser} onClick={() => toggleMealLike()}>
+            <span
+              className="wd-float-right wd-font-size-15px"
+              disabled={!currentUser}
+              onClick={() => toggleMealLike()}
+            >
               {currentUser && liked && (
-                <span className="wd-red wd-pointer">
-                  <FontAwesomeIcon icon={faSolidHeart} />
+                <span className="wd-pointer">
+                  <FontAwesomeIcon className="wd-yellow" icon={faSolidStar} />
                 </span>
               )}
-              {currentUser && !liked && <FontAwesomeIcon icon={faHeart} />}
+              {currentUser && !liked && (
+                <span className="wd-pointer">
+                  <FontAwesomeIcon className="wd-gray" icon={faStar} />
+                </span>
+              )}
             </span>
           </h5>
           <Container>
