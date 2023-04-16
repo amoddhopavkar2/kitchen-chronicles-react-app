@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
-const BASE_API_URL = process.env.REACT_API_BASE || "http://localhost:4000";
-const USER_API_URL = BASE_API_URL + "/users";
+const BASE_API_URL = process.env.REACT_API_BASE || 'http://localhost:4000';
+const USER_API_URL = BASE_API_URL + '/users';
 
 const api = axios.create({ withCredentials: true });
 
@@ -52,4 +52,3 @@ export const updateUser = async (user) => {
   const response = await axios.put(`${USER_API_URL}/${user._id}`, user);
   return user;
 };
-

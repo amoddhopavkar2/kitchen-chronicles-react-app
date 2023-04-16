@@ -1,31 +1,31 @@
-import { useNavigate, useParams } from "react-router";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { findUserByIdThunk } from "./users-thunk";
-import { findReviewsByAuthorThunk } from "../reviews/reviews-thunks";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams } from 'react-router';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { findUserByIdThunk } from './users-thunk';
+import { findReviewsByAuthorThunk } from '../reviews/reviews-thunks';
+import { Link } from 'react-router-dom';
 import {
   findFollowersThunk,
   findFollowingThunk,
   followUserThunk,
-} from "../follows/follows-thunks";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { Badge } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import Follows from "../follows/follows";
-import Likes from "../likes/likes";
-import { getBlogsByUserIdThunk } from "../blog/blog-thunks";
-import { userLikesFoodThunk } from "../likes/likes-thunks";
-import { parseTime } from "../blog/parseTime";
+} from '../follows/follows-thunks';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { Badge } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Follows from '../follows/follows';
+import Likes from '../likes/likes';
+import { getBlogsByUserIdThunk } from '../blog/blog-thunks';
+import { userLikesFoodThunk } from '../likes/likes-thunks';
+import { parseTime } from '../blog/parseTime';
 
 const PublicProfile = () => {
   const { uid } = useParams();
   const { publicProfile } = useSelector((state) => state.users);
   const { currentUser } = useSelector((state) => state.users);
-  const { blog } = useSelector((state) => state.blog);
+  let { blog } = useSelector((state) => state.blog);
   const { reviews } = useSelector((state) => state.reviews);
   const { followers, following } = useSelector((state) => state.follows);
   const [followedBtn, setFollowedBtn] = useState(false);
@@ -40,6 +40,8 @@ const PublicProfile = () => {
     setFollowedBtn(!followedBtn);
   };
 
+  blog = blog.filter((bg) => bg.author.authorName === publicProfile.username);
+
   useEffect(() => {
     dispatch(findUserByIdThunk(uid));
     dispatch(getBlogsByUserIdThunk(uid));
@@ -50,9 +52,9 @@ const PublicProfile = () => {
   }, [uid]);
 
   return (
-    <div className={"mb-3 mt-2"}>
-      <div className={"mb-2"}>
-        <Link to={-1} className={"text-decoration-none text-secondary"}>
+    <div className={'mb-3 mt-2'}>
+      <div className={'mb-2'}>
+        <Link to={-1} className={'text-decoration-none text-secondary'}>
           <i className="bi bi-arrow-left me-1"></i>Back
         </Link>
       </div>
@@ -62,11 +64,11 @@ const PublicProfile = () => {
           {currentUser ? (
             <>
               {followedBtn ? (
-                <Button variant={"outline-success"} className={"float-end"}>
+                <Button variant={'outline-success'} className={'float-end'}>
                   Followed
                 </Button>
               ) : (
-                <Button onClick={handleFollowBtn} className={"float-end"}>
+                <Button onClick={handleFollowBtn} className={'float-end'}>
                   Follow
                 </Button>
               )}
@@ -75,10 +77,25 @@ const PublicProfile = () => {
             <></>
           )}
 
+          {publicProfile.role === 'BLOGGER' ? (
+            <img
+              src={
+                publicProfile.profilePic
+                  ? publicProfile.profilePic
+                  : 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
+              }
+              alt="profileImg"
+              width="148px"
+              height="148px"
+              radius="48px"
+            />
+          ) : (
+            ''
+          )}
           <h2>@{publicProfile.username}</h2>
 
           <h5>
-            <Badge bg={"secondary"}>{publicProfile.role}</Badge>
+            <Badge bg={'secondary'}>{publicProfile.role}</Badge>
           </h5>
           <Container>
             <Form>
@@ -87,7 +104,7 @@ const PublicProfile = () => {
                 className="mb-3"
                 controlId="profileFirstName"
               >
-                <Form.Label column sm="2" className={"text-secondary"}>
+                <Form.Label column sm="2" className={'text-secondary'}>
                   First Name
                 </Form.Label>
                 <Col sm="10">
@@ -100,7 +117,7 @@ const PublicProfile = () => {
                 </Col>
               </Form.Group>
               <Form.Group as={Row} className="mb-3" controlId="profileLastName">
-                <Form.Label column sm="2" className={"text-secondary"}>
+                <Form.Label column sm="2" className={'text-secondary'}>
                   Last Name
                 </Form.Label>
                 <Col sm="10">
@@ -112,14 +129,90 @@ const PublicProfile = () => {
                   />
                 </Col>
               </Form.Group>
+
+              {currentUser && currentUser.role === 'BLOGGER' ? (
+                <div>
+                  <Form.Group as={Row} className="mb-3" controlId="profileBio">
+                    <Form.Label column sm="2" className={'text-secondary'}>
+                      Bio
+                    </Form.Label>
+                    <Col sm="10">
+                      <Form.Control
+                        type="textarea"
+                        value={publicProfile.bio}
+                        readOnly
+                        plaintext
+                      />
+                    </Col>
+                  </Form.Group>
+
+                  <Form.Group
+                    as={Row}
+                    className="mb-3"
+                    controlId="profileWebsite"
+                  >
+                    <Form.Label column sm="2" className={'text-secondary'}>
+                      Website
+                    </Form.Label>
+                    <Col sm="10">
+                      <Form.Control
+                        type="text"
+                        value={publicProfile.website}
+                        readOnly
+                        plaintext
+                      />
+                    </Col>
+                  </Form.Group>
+
+                  <Form.Group as={Row} className="mb-3" controlId="profilePic">
+                    <Form.Label column sm="2" className={'text-secondary'}>
+                      Profile Picture
+                    </Form.Label>
+                    <Col sm="10">
+                      <Form.Control
+                        type="text"
+                        value={publicProfile.profilePic}
+                        readOnly
+                        plaintext
+                      />
+                    </Col>
+                  </Form.Group>
+                </div>
+              ) : (
+                ''
+              )}
+
+              {currentUser && currentUser.role === 'ADMIN' ? (
+                <div>
+                  <Form.Group
+                    as={Row}
+                    className="mb-3"
+                    controlId="adminFromDate"
+                  >
+                    <Form.Label column sm="2" className={'text-secondary'}>
+                      Profile Picture
+                    </Form.Label>
+                    <Col sm="10">
+                      <Form.Control
+                        type="text"
+                        value={currentUser.adminFromDate}
+                        readOnly
+                        plaintext
+                      />
+                    </Col>
+                  </Form.Group>
+                </div>
+              ) : (
+                ''
+              )}
             </Form>
 
             <hr />
 
-            {publicProfile && publicProfile.role === "BLOGGER" && (
+            {publicProfile && publicProfile.role === 'BLOGGER' && (
               <>
                 <h2>Blogs</h2>
-                <ul className={"list-group mb-3"}>
+                <ul className={'list-group mb-3'}>
                   {blog && blog.length === 0 ? (
                     <p>This user haven't written any blog.</p>
                   ) : (
@@ -129,8 +222,8 @@ const PublicProfile = () => {
                       )
                       .map((b) => (
                         <li
-                          className={"list-group-item"}
-                          onClick={() => navigate("/blog/details/" + b._id)}
+                          className={'list-group-item'}
+                          onClick={() => navigate('/blog/details/' + b._id)}
                           key={b._id}
                         >
                           <h5>{b.title}</h5>
@@ -141,7 +234,7 @@ const PublicProfile = () => {
                             }}
                             className="red"
                           ></i>
-                          <div className={"text-secondary"}>
+                          <div className={'text-secondary'}>
                             <span>By: {b.author.authorName}</span>
                             <i className="bi bi-dot"></i>
                             <span>{parseTime(b.time)}</span>
@@ -184,7 +277,7 @@ const PublicProfile = () => {
             {/*</div>*/}
 
             <h2>Comments</h2>
-            <ul className={"list-group"}>
+            <ul className={'list-group'}>
               {publicProfile && reviews && reviews.length === 0 ? (
                 <p>This user haven't posted any comments yet.</p>
               ) : (
@@ -192,12 +285,12 @@ const PublicProfile = () => {
                   .filter((u) => u.author._id === uid)
                   .map((u) => (
                     <li
-                      className={"list-group-item"}
+                      className={'list-group-item'}
                       onClick={() => navigate(`/meal/details/${u.idMeal}`)}
                     >
-                      <span className={"fw-bold"}>
+                      <span className={'fw-bold'}>
                         <Link
-                          className={"text-black"}
+                          className={'text-black'}
                           to={`/profile/${u.author._id}`}
                         >
                           {u.author.username}
