@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_API_URL = process.env.REACT_API_BASE || "http://localhost:4000"
+const BASE_API_URL = process.env.REACT_API_BASE || "http://localhost:4000";
 const FOOD_REVIEWS_API = BASE_API_URL + "/api/reviews/meal";
 const AUTHOR_REVIEWS_API = BASE_API_URL + "/api/users";
 
