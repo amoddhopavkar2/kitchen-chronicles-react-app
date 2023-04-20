@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Chart from "./chart";
 import axios from "axios";
 
-const BASE_API_URL = process.env.REACT_API_BASE || "http://localhost:4000";
+const BASE_API_URL = process.env.REACT_API_BASE || "https://api.macbeth98.com";
 
 function AdminDashboard() {
   const MONTHS = useMemo(
@@ -54,20 +54,20 @@ function AdminDashboard() {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    api.get("http://localhost:4000/api/reviews").then((response) => {
+    api.get("https://api.macbeth98.com/api/reviews").then((response) => {
       setReviews(response.data);
     });
   }, []);
 
   useEffect(() => {
-    api.get("http://localhost:4000/blog").then((response) => {
+    api.get("https://api.macbeth98.com/blog").then((response) => {
       setBlogs(response.data);
     });
   }, []);
 
   const handleReviewDelete = (id) => {
     api
-      .delete(`http://localhost:4000/api/reviews/meal/${id}`)
+      .delete(`https://api.macbeth98.com/api/reviews/meal/${id}`)
       .then(() => {
         const updatedReviews = reviews.filter((review) => review._id !== id);
         setReviews(updatedReviews);
@@ -79,7 +79,7 @@ function AdminDashboard() {
 
   const handleBlogDelete = (id) => {
     api
-      .delete(`http://localhost:4000/blog/${id}`)
+      .delete(`https://api.macbeth98.com/blog/${id}`)
       .then(() => {
         const updatedBlogs = blogs.filter((blog) => blog._id !== id);
         setBlogs(updatedBlogs);
